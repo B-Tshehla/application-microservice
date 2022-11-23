@@ -7,6 +7,7 @@ import com.enfint.application.fiegnClient.DealClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -45,7 +46,7 @@ public class ApplicationService {
 
     private void validateName(String name) {
         log.info("Validating name...{}", name);
-        if (name == null || name.isEmpty()) {
+        if (!StringUtils.hasLength(name)) {
             throw new PreScoringFailedException("Pre-scoring failed name is null");
         } else if (Pattern.matches("[a-zA-Z]{2,30}", name)) {
             log.info("Valid name passed!");
@@ -55,7 +56,7 @@ public class ApplicationService {
     }
 
     private void blankMiddleNameCheck(String name) {
-        if (name == null || name.isEmpty()) {
+        if (!StringUtils.hasLength(name)) {
             log.info("MiddleName is Empty...");
         } else {
             validateName(name);
@@ -64,7 +65,7 @@ public class ApplicationService {
 
     private void validateEmail(String email) {
         log.info("Validating email...");
-        if (email == null || email.isEmpty()) {
+        if (!StringUtils.hasLength(email)) {
             throw new PreScoringFailedException("Pre-scoring failed email is empty");
         } else if (Pattern.matches("[\\w\\.]{2,50}@[\\w\\.]{2,20}", email)) {
             log.info("Valid email passed!");
@@ -86,7 +87,7 @@ public class ApplicationService {
 
     private void validatePassportSeries(String passportSeries) {
         log.info("Validating passport series...");
-        if (passportSeries == null || passportSeries.isEmpty()) {
+        if (!StringUtils.hasLength(passportSeries)) {
             throw new PreScoringFailedException("Pre-scoring failed passport series is null");
         } else if (Pattern.matches("\\d{4}", passportSeries)) {
             log.info("Valid passport series passed!");
@@ -97,7 +98,7 @@ public class ApplicationService {
 
     private void passportNumberValidation(String passportNumber) {
         log.info("Validating passport Number...");
-        if (passportNumber == null || passportNumber.isEmpty()) {
+        if (!StringUtils.hasLength(passportNumber)) {
             throw new PreScoringFailedException("Pre-scoring failed passport number is null");
         } else if (Pattern.matches("\\d{6}", passportNumber)) {
             log.info("Valid passport number passed!");
